@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Dream Homes</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+    }
+    header {
+      background-color: #333;
+      color: #fff;
+      padding: 20px;
+      text-align: center;
+    }
+    #search {
+      margin-top: 10px;
+      padding: 10px;
+      width: 80%;
+      max-width: 600px;
+    }
+    #property-listings {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      padding: 20px;
+    }
+    .property-card {
+      border: 1px solid #ccc;
+      margin: 10px;
+      width: 300px;
+      padding: 10px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+      border-radius: 8px;
+      background-color: #f9f9f9;
+    }
+    .property-card img {
+      width: 100%;
+      height: auto;
+      border-radius: 4px;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Find Your Dream Home</h1>
+    <input type="text" id="search" placeholder="Search by location..." />
+  </header>
+  <main id="property-listings">
+    <!-- Property cards will be injected here -->
+  </main>
+
+  <script>
+    const properties = [
+      {
+        title: "Modern Apartment",
+        location: "New York",
+        price: "$500,000",
+        image: "https://images.adsttc.com/media/images/637d/1d63/db20/0f35/7400/bacf/large_jpg/2505-broadway-apartments-oda-new-york_16.jpg?1669143972",
+        description: "A beautiful apartment in the heart of the city."
+      },
+      {
+        title: "Cozy Cottage",
+        location: "Countryside",
+        price: "$250,000",
+        image: "https://files.holidaycottages.co.uk/FCImages/52857/CHL39-14eh.jpg?width=770",
+        description: "A peaceful cottage surrounded by nature."
+      },
+      {
+        title: "Farm House India",
+        location: "Farm House India",
+        price: "$800,000",
+        image: "https://th.bing.com/th/id/OIP.h-K_St0p_0QnzcbF0awpXAAAAA?rs=1&pid=ImgDetMain",
+        description: "A luxurious farm house located in the scenic outskirts of India."
+      }
+    ];
+
+    const listingsContainer = document.getElementById('property-listings');
+
+    function displayProperties(props) {
+      listingsContainer.innerHTML = '';
+      props.forEach(property => {
+        const card = document.createElement('div');
+        card.className = 'property-card';
+        card.innerHTML = `
+          <img src="${property.image}" alt="${property.title}" />
+          <h2>${property.title}</h2>
+          <p><strong>Location:</strong> ${property.location}</p>
+          <p><strong>Price:</strong> ${property.price}</p>
+          <p>${property.description}</p>
+        `;
+        listingsContainer.appendChild(card);
+      });
+    }
+
+    displayProperties(properties);
+
+    document.getElementById('search').addEventListener('input', (e) => {
+      const query = e.target.value.toLowerCase();
+      const filtered = properties.filter(p => p.location.toLowerCase().includes(query));
+      displayProperties(filtered);
+    });
+  </script>
+</body>
+</html>
